@@ -59,13 +59,13 @@ jobs:
     steps:
       - attach_workspace:
             # Must be absolute path or relative path from working_directory
-            at: /tmp/workspace
+            at: .
       - checkout
       - setup_remote_docker
       - run:
           name: Build Docker image
           command: |
-            cd /tmp/workspace | docker build -t $IMAGE_NAME:latest . |
+            ll | docker build -t $IMAGE_NAME:latest . |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push $IMAGE_NAME:latest
 workflows:
