@@ -49,7 +49,7 @@ jobs:
       - persist_to_workspace:
           root: target/
           paths:
-            - target/assembly-line.jar
+            - assembly-line.jar
   build-docker:
     environment:
       IMAGE_NAME: themedeiros/assembly-line
