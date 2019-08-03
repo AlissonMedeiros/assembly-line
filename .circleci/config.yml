@@ -66,9 +66,9 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-          cd /tmp/workspace | docker build -t $IMAGE_NAME:latest . |
-          echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin 
-          docker push $IMAGE_NAME:latest
+            cd /tmp/workspace | docker build -t $IMAGE_NAME:latest . |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push $IMAGE_NAME:latest
     publish-latest:
       environment:
         IMAGE_NAME: building-on-ci
