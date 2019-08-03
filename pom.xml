@@ -15,6 +15,8 @@
 
     <properties>
         <java.version>11</java.version>
+        <junit-jupiter.version>5.5.1</junit-jupiter.version>
+        <mockito.version>3.0.0</mockito.version>
     </properties>
 
     <dependencies>
@@ -35,15 +37,42 @@
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>4.0.0</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -55,10 +84,17 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!--plugin>
+            <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.4.9</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>0.9</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <phase>test</phase>
@@ -68,12 +104,15 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mutationThreshold>99</mutationThreshold>
+                    <mutationThreshold>43</mutationThreshold>
                     <targetClasses>
-                        <param>com.medeiros*</param>
+                        <param>com.medeiros.assemblyline.parser*</param>
+                        <param>com.medeiros.assemblyline.service*</param>
+                        <param>com.medeiros.assemblyline.model*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>com.medeiros*</param>
+                        <param>com.medeiros.assemblyline.parser*</param>
+                        <param>com.medeiros.assemblyline.service*</param>
                     </targetTests>
                     <avoidCallsTo>
                         <avoidCallsTo>java.util.logging</avoidCallsTo>
@@ -83,7 +122,7 @@
                         <avoidCallsTo>io.micrometer</avoidCallsTo>
                     </avoidCallsTo>
                 </configuration>
-            </plugin-->
+            </plugin>
         </plugins>
     </build>
 
