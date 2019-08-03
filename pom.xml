@@ -49,6 +49,7 @@
     </dependencies>
 
     <build>
+        <finalName>assembly-line.jar</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

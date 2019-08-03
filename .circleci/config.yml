@@ -40,7 +40,11 @@ jobs:
       # run tests!
       - run: mvn integration-test
       - run: mvn sonar:sonar -Dsonar.projectKey=AlissonMedeiros_assembly-line -Dsonar.organization=alissonmedeiros-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=5883a4b728fdff728a176c01d5b8375e9d37feab
-
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - target/assembly-line.jar
+            - build/*
   build-docker:
     environment:
       IMAGE_NAME: themedeiros/assembly-line
@@ -51,7 +55,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build Docker image
-          command: ls | pwd | docker build -t $IMAGE_NAME:latest .
+          command: cd /tmp/workspace | ls | pwd | docker build -t $IMAGE_NAME:latest .
     publish-latest:
       environment:
         IMAGE_NAME: building-on-ci
