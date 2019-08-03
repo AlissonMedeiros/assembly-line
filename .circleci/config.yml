@@ -39,3 +39,8 @@ jobs:
 
       # run tests!
       - run: mvn integration-test
+      - run: mvn sonar:sonar \
+          -Dsonar.projectKey=AlissonMedeiros_assembly-line \
+          -Dsonar.organization=alissonmedeiros-github \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=5883a4b728fdff728a176c01d5b8375e9d37feab
