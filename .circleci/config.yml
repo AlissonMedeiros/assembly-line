@@ -44,14 +44,12 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
-      # run tests!
       - run: mvn integration-test
       - run: mvn sonar:sonar -Dsonar.projectKey=AlissonMedeiros_assembly-line -Dsonar.organization=alissonmedeiros-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=5883a4b728fdff728a176c01d5b8375e9d37feab
       - persist_to_workspace:
           root: .
           paths:
             - target/assembly-line.jar
-            - build/*
   build-docker:
     environment:
       IMAGE_NAME: themedeiros/assembly-line
