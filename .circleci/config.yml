@@ -65,12 +65,9 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build Docker image
-          command: cd /tmp/workspace |
-          ls |
-          pwd |
-          docker build -t $IMAGE_NAME:latest . |
-
-          echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+          command: |
+          cd /tmp/workspace | docker build -t $IMAGE_NAME:latest . |
+          echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin 
           docker push $IMAGE_NAME:latest
     publish-latest:
       environment:
