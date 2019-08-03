@@ -2,7 +2,14 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
+version: 2.1
+
+executors:
+  my-executor:
+    docker:
+      - image: buildpack-deps:jessie
+    working_directory: /tmp
+
 jobs:
   build:
     docker:
@@ -41,7 +48,7 @@ jobs:
       - run: mvn integration-test
       - run: mvn sonar:sonar -Dsonar.projectKey=AlissonMedeiros_assembly-line -Dsonar.organization=alissonmedeiros-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=5883a4b728fdff728a176c01d5b8375e9d37feab
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: workspace
           paths:
             - target/assembly-line.jar
             - build/*
@@ -51,11 +58,20 @@ jobs:
     docker:
       - image: circleci/buildpack-deps:stretch
     steps:
+      - attach_workspace:
+            # Must be absolute path or relative path from working_directory
+            at: /tmp/workspace
       - checkout
       - setup_remote_docker
       - run:
           name: Build Docker image
-          command: cd /tmp/workspace | ls | pwd | docker build -t $IMAGE_NAME:latest .
+          command: cd /tmp/workspace |
+          ls |
+          pwd |
+          docker build -t $IMAGE_NAME:latest . |
+
+          echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+          docker push $IMAGE_NAME:latest
     publish-latest:
       environment:
         IMAGE_NAME: building-on-ci
