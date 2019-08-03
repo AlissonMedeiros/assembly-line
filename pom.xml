@@ -54,7 +54,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
                 <version>1.4.9</version>
@@ -82,8 +82,8 @@
                         <avoidCallsTo>io.micrometer</avoidCallsTo>
                     </avoidCallsTo>
                 </configuration>
-            </plugin>
+            </plugin-->
         </plugins>
-    </build>
+    </build> 
 
 </project>
