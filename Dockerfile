@@ -17,7 +17,7 @@ VOLUME $APP_HOME/config
 
 WORKDIR $APP_HOME
 #Copy executable jar file from the builder image
-COPY --from=builder /target/*.jar app.jar
+COPY /target/*.jar app.jar
 
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar app.jar" ]
 #Second option using shell form:
