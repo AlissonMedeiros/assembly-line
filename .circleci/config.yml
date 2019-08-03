@@ -77,9 +77,3 @@ workflows:
       - build-docker:
           requires:
             - build
-      - publish-latest:
-          requires:
-            - build-docker
-          filters:
-            branches:
-              only: master
