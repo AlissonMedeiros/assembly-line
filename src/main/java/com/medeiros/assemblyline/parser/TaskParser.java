@@ -1,8 +1,10 @@
 package com.medeiros.assemblyline.parser;
 
 import com.medeiros.assemblyline.model.Task;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class TaskParser {
 
@@ -11,9 +13,19 @@ public class TaskParser {
     public static final String MINUTES = "min";
     public static final String UNNAMED = "unnamed";
     private static Pattern timePattern = Pattern.compile("([-0-9]+)(?=min)");
-    private static Pattern namePattern = Pattern.compile("([A-Za-z- ]+)");
+    private static Pattern namePattern = Pattern.compile("([^0-9]+)");
 
-    public static Task parserLine(String line) {
+    private TaskParser() {
+
+    }
+
+    public static List<Task> parse(List<String> lines) {
+        return lines.stream()
+                .map(TaskParser::parse)
+                .collect(Collectors.toList());
+    }
+
+    public static Task parse(String line) {
         if (isMaintenance(line)) {
             return Task.builder()
                     .minutes(MAINTENANCE_MINUTES)

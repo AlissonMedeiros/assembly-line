@@ -3,18 +3,19 @@ package com.medeiros.assemblyline.model;
 
 import java.time.LocalTime;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
-public enum Requirement {
+@Getter
+public enum RequiredStep {
 
-    LABOR_GYMNASTIC(LocalTime.of(16, 00, 00)
+    LABOR_GYMNASTIC("Ginástica laboral", LocalTime.of(16, 00, 00)
             , LocalTime.of(17, 00, 00)
-            , 60L
-            , 999999);
+            , 10L);
 
+    private String name;
     private LocalTime start;
     private LocalTime end;
     private Long duration;
-    private int order;
 
 }
